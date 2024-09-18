@@ -13,20 +13,20 @@ body {
 
 .header {
     background-color: blue;
-    font-size: 32px;
+    font-size: 38px;
     text-align: center;
-    padding-top: 1%;
+    padding-top: 2%;
 }
 
 .container {
     background-color: green;
     display: grid;
-    padding: 64px;
+    padding: 128px;
     padding-top: 32px;
     padding-bottom: 32px;
-    grid-template-columns: repeat(3, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     overflow: auto;
-    gap: 32px;
+    gap: 48px;
 }
 
 .book-container {
