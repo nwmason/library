@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-rows: 1fr 11fr;
+    grid-template-rows: 1fr 19fr;
     height: 100vh;
     width: 100%;
 }
@@ -13,20 +13,21 @@ body {
 
 .header {
     background-color: blue;
-    font-size: 38px;
+    font-size: 48px;
+    padding-top: 16px;
+    padding-bottom: 8px;
     text-align: center;
-    padding-top: 2%;
 }
 
 .container {
     background-color: green;
     display: grid;
     padding: 128px;
-    padding-top: 32px;
-    padding-bottom: 32px;
+    padding-top: 36px;
+    padding-bottom: 16px;
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     overflow: auto;
-    gap: 48px;
+    gap: 36px;
 }
 
 .book-container {

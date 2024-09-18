@@ -19,7 +19,17 @@ Book.prototype.changeReadStatus = function () {
     }
 }
 
+const testBook = new Book("The Alpha", "Me", "0", false)
+const otherBook = new Book("The Omega", "Not Me", "999", true)
+
 
 function addBooktoLibrary() {
-
+    // learn about dialogs and modals then come back
 }
+
+myLibrary.push(testBook)
+myLibrary.push(otherBook)
+
+// to do:
+// iterate over myLibrary, publishing book info
+// on each individual Book div in class book-container
