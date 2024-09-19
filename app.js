@@ -19,17 +19,20 @@ Book.prototype.changeReadStatus = function () {
     }
 }
 
-const testBook = new Book("The Alpha", "Me", "0", false)
-const otherBook = new Book("The Omega", "Not Me", "999", true)
+const theLordofTheRings = new Book("The Lord of the Rings", "J.R.R. Tolkien", "1077", true)
+const Lovecraft = new Book("La Musica de Erich Zann", "H.P. Lovecraft", "175", true)
 
 
 function addBooktoLibrary() {
     // learn about dialogs and modals then come back
 }
 
-myLibrary.push(testBook)
-myLibrary.push(otherBook)
+myLibrary.push(theLordofTheRings)
+myLibrary.push(Lovecraft)
 
 // to do:
 // iterate over myLibrary, publishing book info
 // on each individual Book div in class book-container
+myLibrary.forEach(function (arrayItem) {
+    console.log(arrayItem.title)
+});

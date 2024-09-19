@@ -5,6 +5,8 @@ body {
     grid-template-rows: 1fr 19fr;
     height: 100vh;
     width: 100%;
+    background-color: green;
+    box-sizing: border-box;
 }
 
 * {
@@ -13,19 +15,41 @@ body {
 
 .header {
     background-color: blue;
-    font-size: 48px;
+    font-size: 64px;
     padding-top: 16px;
     padding-bottom: 8px;
     text-align: center;
+}
+
+#btn-new-book {
+    width: 256px;
+    height: 4rem;
+    margin-top: 32px;
+    justify-self: center;
+    font-size: 28px;
+    background-color: green;
+    border: 2px solid white;
+    color: white;
+    transition: 0.25s;
+}
+
+#btn-new-book:hover {
+    cursor: pointer;
+    background-color: rgb(0, 100, 0);
+}
+
+#btn-new-book:active {
+    background-color: white;
+    border: 2px solid green;
+    color: green;
 }
 
 .container {
     background-color: green;
     display: grid;
     padding: 128px;
-    padding-top: 36px;
-    padding-bottom: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    padding-top: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
     overflow: auto;
     gap: 36px;
 }
@@ -33,5 +57,28 @@ body {
 .book-container {
     border: 2px solid black;
     background-color: brown;
-    height: 350px;
+    height: 232px;
+    text-align: center;
+    padding: 0px;
+    display: grid;
+    grid-template: 1fr 1fr 1fr 1fr / 1fr 5fr;
+    align-items: center;
+}
+
+#read-status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.read-text-yes {
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+
+.read-text-no {
+    background-color: lightcoral;
+    border: 2px solid red;
 }
