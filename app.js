@@ -126,6 +126,7 @@ myLibrary.forEach(function (bookObject) {
 
         deleteBook.addEventListener("click", () => {
             dialog.close();
+            svgContainer.parentElement.remove()
         })
         keepBook.addEventListener("click", () => {
             dialog.close()
