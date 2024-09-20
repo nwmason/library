@@ -20,7 +20,7 @@ Book.prototype.changeReadStatus = function () {
 }
 
 const theLordofTheRings = new Book("The Lord of the Rings", "J.R.R. Tolkien", "1077", true)
-const Lovecraft = new Book("La Musica de Erich Zann", "H.P. Lovecraft", "175", true)
+const Lovecraft = new Book("La Musica de Erich Zann", "H.P. Lovecraft", "175", false)
 
 
 function addBooktoLibrary() {
@@ -58,7 +58,7 @@ myLibrary.forEach(function(bookObject) {
     const bookTitle = document.createElement("div");
     const bookAuthor = document.createElement("div");
     const bookPages = document.createElement("div");
-    const bookReadStatusGrid = document.createElement("form");
+    const bookReadStatusGrid = document.createElement("div");
 
     bookTitle.setAttribute("class", "book-title");
     bookTitle.textContent = bookObject.title;
@@ -76,5 +76,44 @@ myLibrary.forEach(function(bookObject) {
     bookContainer.appendChild(bookPages);
     bookContainer.appendChild(ReadStatusLabel);
     bookContainer.appendChild(bookReadStatusGrid);
+
+    const readCheckBox = document.createElement("input");
+    const bookReadStatus = document.createElement("div");
+
+    readCheckBox.type = "checkbox";
+    readCheckBox.setAttribute("class", "read-checkbox")
+    bookReadStatus.setAttribute("id", "read-text");
+
+
+    if (bookObject.readStatus === true) {
+        readCheckBox.checked = true;
+        bookReadStatus.setAttribute("class", "yes");
+        bookReadStatus.textContent = "Yes!";
+    } else {
+        readCheckBox.checked = false;
+        bookReadStatus.setAttribute("class", "no");
+        bookReadStatus.textContent = "Not Yet!";
+
+    }    
+
+    bookReadStatusGrid.appendChild(readCheckBox)
+    bookReadStatusGrid.appendChild(bookReadStatus)
+
+    readCheckBox.addEventListener("change", function() {
+        if (this.checked) {
+            bookReadStatus.setAttribute("class", "yes");
+            bookReadStatus.textContent = "Yes!";
+        } else {
+            bookReadStatus.setAttribute("class", "no");
+            bookReadStatus.textContent = "Not Yet!";    
+        }
+    })
+
+    const svgCode = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" /></svg>'
+    const svgContainer = document.createElement("div");
+    svgContainer.innerHTML = svgCode;
+
+    svgContainer.setAttribute("class", "trash-icon")
+    bookContainer.appendChild(svgContainer)
 });
 

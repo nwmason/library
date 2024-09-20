@@ -48,7 +48,7 @@ body {
 .container {
     background-color: green;
     display: grid;
-    padding: 128px;
+    padding: clamp(1rem, 128px, 4rem);
     padding-top: 0px;
     grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
     overflow: auto;
@@ -57,13 +57,36 @@ body {
 
 .book-container {
     border: 2px solid black;
+    min-width: 300px;
     background-color: brown;
-    height: 232px;
+    height: 256px;
     text-align: center;
-    padding: 0px;
+    padding: 12px;
     display: grid;
-    grid-template: 1fr 1fr 1fr 1fr / 1fr 5fr;
+    gap: 8px;
+    grid-template: 1fr 1fr 1fr / 80px 1fr 1fr 1fr 1fr;
     align-items: center;
+}
+
+.label {
+    font-size: 18px;
+}
+
+.book-title {
+    font-size: 24px;
+    font-weight: 600;
+    grid-column: 2 / 6;
+}
+
+.book-author {
+    font-size: 20px;
+    font-weight: 500;
+    grid-column: 2 / 4;
+}
+
+.book-pages {
+    font-size: 20px;
+    font-weight: 500;
 }
 
 #read-status {
@@ -72,14 +95,36 @@ body {
     gap: 16px;
     margin-left: 32px;
     margin-right: 32px;
+    grid-column: 2 / 5;
 }
 
-.read-text-yes {
+.read-checkbox {
+    height: 22px;
+}
+
+#read-text {
+    width: 80px;
+}
+.yes {
     background-color: lightgreen;
     border: 2px solid green;
 }
 
-.read-text-no {
+.no {
     background-color: lightcoral;
     border: 2px solid red;
+}
+
+.trash-icon { 
+    fill: white;
+    transition: 0.1s;
+}
+
+.trash-icon:hover {
+    fill: red;
+    cursor: pointer;
+}
+
+.trash-icon:active {
+    fill: darkred;
 }
