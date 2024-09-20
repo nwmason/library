@@ -22,7 +22,6 @@ Book.prototype.changeReadStatus = function () {
 const theLordofTheRings = new Book("The Lord of the Rings", "J.R.R. Tolkien", "1077", true)
 const Lovecraft = new Book("La Musica de Erich Zann", "H.P. Lovecraft", "175", false)
 
-
 function addBooktoLibrary() {
     // learn about dialogs and modals then come back
 }
@@ -31,14 +30,16 @@ myLibrary.push(theLordofTheRings)
 myLibrary.push(Lovecraft)
 console.log(myLibrary)
 // to do:
-// iterate over myLibrary, publishing book info
-// on each individual Book div in class book-container
+// functioning book deletion
 const libraryGrid = document.querySelector(".container")
+let n = 0
+myLibrary.forEach(function (bookObject) {
 
-myLibrary.forEach(function(bookObject) {
+    n++
     const bookContainer = document.createElement("div");
 
     bookContainer.setAttribute("class", "book-container");
+    bookContainer.setAttribute("id", bookObject.title + n)
     libraryGrid.appendChild(bookContainer);
 
     const TitleLabel = document.createElement("div");
@@ -93,19 +94,18 @@ myLibrary.forEach(function(bookObject) {
         readCheckBox.checked = false;
         bookReadStatus.setAttribute("class", "no");
         bookReadStatus.textContent = "Not Yet!";
-
-    }    
+    }
 
     bookReadStatusGrid.appendChild(readCheckBox)
     bookReadStatusGrid.appendChild(bookReadStatus)
 
-    readCheckBox.addEventListener("change", function() {
-        if (this.checked) {
+    readCheckBox.addEventListener("change", () => {
+        if (readCheckBox.checked === true) {
             bookReadStatus.setAttribute("class", "yes");
             bookReadStatus.textContent = "Yes!";
         } else {
             bookReadStatus.setAttribute("class", "no");
-            bookReadStatus.textContent = "Not Yet!";    
+            bookReadStatus.textContent = "Not Yet!";
         }
     })
 
@@ -115,5 +115,23 @@ myLibrary.forEach(function(bookObject) {
 
     svgContainer.setAttribute("class", "trash-icon")
     bookContainer.appendChild(svgContainer)
+
+
+    svgContainer.addEventListener("click", () => {
+        const dialog = document.querySelector("#delete-warning");
+        dialog.showModal();
+
+        const deleteBook = document.querySelector(".delete-book")
+        const keepBook = document.querySelector(".keep-book")
+
+        deleteBook.addEventListener("click", () => {
+            dialog.close();
+        })
+        keepBook.addEventListener("click", () => {
+            dialog.close()
+            console.log("closed")
+        })
+    })
+
 });
 
