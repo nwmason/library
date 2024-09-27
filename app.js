@@ -9,23 +9,39 @@ function Book(title, author, pageNumber, readStatus) {
 
 //to do:
 //create function to add book to library, then project complete
-function addBooktoLibrary() {
-    const form = document.getElementById("new-book-form");
+function addBooktoLibrary(event) {
+    event.preventDefault();
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-    })
+    const formData = new FormData(event.target);
+    const formDataObj = new Book();
+
+    formData.forEach((value, key) => (formDataObj[key] = value));
+    const checkbox = document.getElementById("readStatus");
+
+    if (checkbox.checked) {
+        formDataObj.readStatus = true;
+    } else {
+        formDataObj.readStatus = false;
+    }
+
+    const element = document.getElementsByClassName("form-container");
+    element[0].parentNode.removeChild(element[0])
+    console.log("form removed")
+    
+
+    myLibrary.push(formDataObj);
+    console.log(myLibrary)
+
+    updateLibrary();
 }
 
 const libraryGrid = document.querySelector(".container");
 const btnNewBook = document.getElementById("btn-new-book");
 
-let formState = 0
-
 btnNewBook.addEventListener("click", () => {
-    if (formState === 0) {
-
-        formState++;
+    if (document.getElementById("new-book-form")) {
+        console.log("form already exists");
+    } else {
 
         const bookFormContainer = document.createElement("div");
         bookFormContainer.setAttribute("class", "form-container");
@@ -57,21 +73,21 @@ btnNewBook.addEventListener("click", () => {
         authorInput.setAttribute("placeholder", "Dr. Seuss");
 
         const pagesLabel = document.createElement("label");
-        pagesLabel.setAttribute("for", "pages");
+        pagesLabel.setAttribute("for", "pageNumber");
         pagesLabel.textContent = "Page Number:"
         const pagesInput = document.createElement("input");
         pagesInput.setAttribute("type", "number");
-        pagesInput.setAttribute("name", "pages");
-        pagesInput.setAttribute("id", "pages");
+        pagesInput.setAttribute("name", "pageNumber");
+        pagesInput.setAttribute("id", "pageNumber");
         pagesInput.required = true;
         pagesInput.setAttribute("placeholder", "64");
 
         const readLabel = document.createElement("label");
-        readLabel.setAttribute("for", "form-read-status");
+        readLabel.setAttribute("for", "readStatus");
         readLabel.textContent = "Have Read?";
         const readInput = document.createElement("input");
         readInput.setAttribute("type", "checkbox");
-        readInput.setAttribute("id", "form-read-status")
+        readInput.setAttribute("id", "readStatus")
 
         const formSubmit = document.createElement("button");
         formSubmit.setAttribute("class", "form-btn")
@@ -88,6 +104,9 @@ btnNewBook.addEventListener("click", () => {
         form.appendChild(readInput);
         form.appendChild(formSubmit);
 
+        form.addEventListener("submit", (event) => {
+            addBooktoLibrary(event);
+        });
     }
 })
 
@@ -97,103 +116,113 @@ const Lovecraft = new Book("La Musica de Erich Zann", "H.P. Lovecraft", "175", f
 myLibrary.push(theLordofTheRings)
 myLibrary.push(Lovecraft)
 
-myLibrary.forEach(function (bookObject) {
-
-    const bookContainer = document.createElement("div");
-
-    bookContainer.setAttribute("class", "book-container");
-    libraryGrid.appendChild(bookContainer);
-
-    const TitleLabel = document.createElement("div");
-    const AuthorLabel = document.createElement("div");
-    const PagesLabel = document.createElement("div");
-    const ReadStatusLabel = document.createElement("div");
-
-    TitleLabel.setAttribute("class", "label");
-    TitleLabel.textContent = "Title:";
-    AuthorLabel.setAttribute("class", "label");
-    AuthorLabel.textContent = "Author:";
-    PagesLabel.setAttribute("class", "label");
-    PagesLabel.textContent = "Pages:";
-    ReadStatusLabel.setAttribute("class", "label");
-    ReadStatusLabel.textContent = "Have read?";
-
-    const bookTitle = document.createElement("div");
-    const bookAuthor = document.createElement("div");
-    const bookPages = document.createElement("div");
-    const bookReadStatusGrid = document.createElement("div");
-
-    bookTitle.setAttribute("class", "book-title");
-    bookTitle.textContent = bookObject.title;
-    bookAuthor.setAttribute("class", "book-author");
-    bookAuthor.textContent = bookObject.author;
-    bookPages.setAttribute("class", "book-pages");
-    bookPages.textContent = bookObject.pageNumber;
-    bookReadStatusGrid.setAttribute("id", "read-status");
-
-    bookContainer.appendChild(TitleLabel);
-    bookContainer.appendChild(bookTitle);
-    bookContainer.appendChild(AuthorLabel);
-    bookContainer.appendChild(bookAuthor);
-    bookContainer.appendChild(PagesLabel);
-    bookContainer.appendChild(bookPages);
-    bookContainer.appendChild(ReadStatusLabel);
-    bookContainer.appendChild(bookReadStatusGrid);
-
-    const readCheckBox = document.createElement("input");
-    const bookReadStatus = document.createElement("div");
-
-    readCheckBox.type = "checkbox";
-    readCheckBox.setAttribute("class", "read-checkbox")
-    bookReadStatus.setAttribute("id", "read-text");
-
-
-    if (bookObject.readStatus === true) {
-        readCheckBox.checked = true;
-        bookReadStatus.setAttribute("class", "yes");
-        bookReadStatus.textContent = "Yes!";
-    } else {
-        readCheckBox.checked = false;
-        bookReadStatus.setAttribute("class", "no");
-        bookReadStatus.textContent = "Not Yet!";
+function updateLibrary() {
+    const bookList = document.getElementsByClassName("book-container");
+    while(bookList.length > 0) {
+        bookList[0].parentNode.removeChild(bookList[0]);
+        console.log("book cleared")
     }
 
-    bookReadStatusGrid.appendChild(readCheckBox)
-    bookReadStatusGrid.appendChild(bookReadStatus)
+    myLibrary.forEach(function (bookObject) {
 
-    readCheckBox.addEventListener("change", () => {
-        if (readCheckBox.checked === true) {
+        const bookContainer = document.createElement("div");
+
+        bookContainer.setAttribute("class", "book-container");
+        libraryGrid.appendChild(bookContainer);
+
+        const TitleLabel = document.createElement("div");
+        const AuthorLabel = document.createElement("div");
+        const PagesLabel = document.createElement("div");
+        const ReadStatusLabel = document.createElement("div");
+
+        TitleLabel.setAttribute("class", "label");
+        TitleLabel.textContent = "Title:";
+        AuthorLabel.setAttribute("class", "label");
+        AuthorLabel.textContent = "Author:";
+        PagesLabel.setAttribute("class", "label");
+        PagesLabel.textContent = "Pages:";
+        ReadStatusLabel.setAttribute("class", "label");
+        ReadStatusLabel.textContent = "Have read?";
+
+        const bookTitle = document.createElement("div");
+        const bookAuthor = document.createElement("div");
+        const bookPages = document.createElement("div");
+        const bookReadStatusGrid = document.createElement("div");
+
+        bookTitle.setAttribute("class", "book-title");
+        bookTitle.textContent = bookObject.title;
+        bookAuthor.setAttribute("class", "book-author");
+        bookAuthor.textContent = bookObject.author;
+        bookPages.setAttribute("class", "book-pages");
+        bookPages.textContent = bookObject.pageNumber;
+        bookReadStatusGrid.setAttribute("id", "read-status");
+
+        bookContainer.appendChild(TitleLabel);
+        bookContainer.appendChild(bookTitle);
+        bookContainer.appendChild(AuthorLabel);
+        bookContainer.appendChild(bookAuthor);
+        bookContainer.appendChild(PagesLabel);
+        bookContainer.appendChild(bookPages);
+        bookContainer.appendChild(ReadStatusLabel);
+        bookContainer.appendChild(bookReadStatusGrid);
+
+        const readCheckBox = document.createElement("input");
+        const bookReadStatus = document.createElement("div");
+
+        readCheckBox.type = "checkbox";
+        readCheckBox.setAttribute("class", "read-checkbox")
+        bookReadStatus.setAttribute("id", "read-text");
+
+
+        if (bookObject.readStatus === true) {
+            readCheckBox.checked = true;
             bookReadStatus.setAttribute("class", "yes");
             bookReadStatus.textContent = "Yes!";
         } else {
+            readCheckBox.checked = false;
             bookReadStatus.setAttribute("class", "no");
             bookReadStatus.textContent = "Not Yet!";
         }
-    })
 
-    const svgCode = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" /></svg>'
-    const svgContainer = document.createElement("div");
-    svgContainer.innerHTML = svgCode;
+        bookReadStatusGrid.appendChild(readCheckBox)
+        bookReadStatusGrid.appendChild(bookReadStatus)
 
-    svgContainer.setAttribute("class", "trash-icon")
-    bookContainer.appendChild(svgContainer)
-
-
-    svgContainer.addEventListener("click", () => {
-        const dialog = document.querySelector("#delete-warning");
-        dialog.showModal();
-
-        const deleteBook = document.querySelector(".delete-book")
-        const keepBook = document.querySelector(".keep-book")
-
-        deleteBook.addEventListener("click", () => {
-            dialog.close();
-            svgContainer.parentElement.remove()
+        readCheckBox.addEventListener("change", () => {
+            if (readCheckBox.checked === true) {
+                bookReadStatus.setAttribute("class", "yes");
+                bookReadStatus.textContent = "Yes!";
+            } else {
+                bookReadStatus.setAttribute("class", "no");
+                bookReadStatus.textContent = "Not Yet!";
+            }
         })
-        keepBook.addEventListener("click", () => {
-            dialog.close()
-            console.log("closed")
-        })
-    })
 
-});
+        const svgCode = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" /></svg>'
+        const svgContainer = document.createElement("div");
+        svgContainer.innerHTML = svgCode;
+
+        svgContainer.setAttribute("class", "trash-icon")
+        bookContainer.appendChild(svgContainer)
+
+
+        svgContainer.addEventListener("click", () => {
+            const dialog = document.querySelector("#delete-warning");
+            dialog.showModal();
+
+            const deleteBook = document.querySelector(".delete-book")
+            const keepBook = document.querySelector(".keep-book")
+
+            deleteBook.addEventListener("click", () => {
+                dialog.close();
+                svgContainer.parentElement.remove()
+            })
+            keepBook.addEventListener("click", () => {
+                dialog.close()
+                console.log("closed")
+            })
+        })
+
+    });
+};
+
+updateLibrary();
