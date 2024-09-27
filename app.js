@@ -1,8 +1,5 @@
-// books to be stored in array
 const myLibrary = [];
 
-// function for deleting book to be stored on prototype,
-// not within the constructor!
 function Book(title, author, pageNumber, readStatus) {
     this.title = title;
     this.author = author;
@@ -10,36 +7,101 @@ function Book(title, author, pageNumber, readStatus) {
     this.readStatus = readStatus
 }
 
-Book.prototype.changeReadStatus = function () {
-    if (this.readStatus === true) {
-        // changing the books read status from "true" to "false"
-        return false
-    } else {
-        return true
-    }
+//to do:
+//create function to add book to library, then project complete
+function addBooktoLibrary() {
+    const form = document.getElementById("new-book-form");
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+    })
 }
+
+const libraryGrid = document.querySelector(".container");
+const btnNewBook = document.getElementById("btn-new-book");
+
+let formState = 0
+
+btnNewBook.addEventListener("click", () => {
+    if (formState === 0) {
+
+        formState++;
+
+        const bookFormContainer = document.createElement("div");
+        bookFormContainer.setAttribute("class", "form-container");
+        libraryGrid.appendChild(bookFormContainer)
+
+        const form = document.createElement("form");
+        form.setAttribute("method", "post")
+        form.setAttribute("action", "submit.php")
+        form.setAttribute("id", "new-book-form");
+
+        const titleLabel = document.createElement("label");
+        titleLabel.setAttribute("for", "title");
+        titleLabel.textContent = "Title:";
+        const titleInput = document.createElement("input");
+        titleInput.setAttribute("type", "text");
+        titleInput.setAttribute("name", "title");
+        titleInput.setAttribute("id", "title");
+        titleInput.required = true;
+        titleInput.setAttribute("placeholder", "Green Eggs and Ham")
+
+        const authorLabel = document.createElement("label");
+        authorLabel.setAttribute("for", "author");
+        authorLabel.textContent = "Author:";
+        const authorInput = document.createElement("input");
+        authorInput.setAttribute("type", "text");
+        authorInput.setAttribute("name", "author");
+        authorInput.setAttribute("id", "author");
+        authorInput.required = true;
+        authorInput.setAttribute("placeholder", "Dr. Seuss");
+
+        const pagesLabel = document.createElement("label");
+        pagesLabel.setAttribute("for", "pages");
+        pagesLabel.textContent = "Page Number:"
+        const pagesInput = document.createElement("input");
+        pagesInput.setAttribute("type", "number");
+        pagesInput.setAttribute("name", "pages");
+        pagesInput.setAttribute("id", "pages");
+        pagesInput.required = true;
+        pagesInput.setAttribute("placeholder", "64");
+
+        const readLabel = document.createElement("label");
+        readLabel.setAttribute("for", "form-read-status");
+        readLabel.textContent = "Have Read?";
+        const readInput = document.createElement("input");
+        readInput.setAttribute("type", "checkbox");
+        readInput.setAttribute("id", "form-read-status")
+
+        const formSubmit = document.createElement("button");
+        formSubmit.setAttribute("class", "form-btn")
+        formSubmit.textContent = "Submit"
+
+        bookFormContainer.appendChild(form);
+        form.appendChild(titleLabel);
+        form.appendChild(titleInput);
+        form.appendChild(authorLabel);
+        form.appendChild(authorInput);
+        form.appendChild(pagesLabel);
+        form.appendChild(pagesInput);
+        form.appendChild(readLabel);
+        form.appendChild(readInput);
+        form.appendChild(formSubmit);
+
+    }
+})
 
 const theLordofTheRings = new Book("The Lord of the Rings", "J.R.R. Tolkien", "1077", true)
 const Lovecraft = new Book("La Musica de Erich Zann", "H.P. Lovecraft", "175", false)
 
-function addBooktoLibrary() {
-    // learn about dialogs and modals then come back
-}
-
 myLibrary.push(theLordofTheRings)
 myLibrary.push(Lovecraft)
-console.log(myLibrary)
-// to do:
-// functioning book deletion
-const libraryGrid = document.querySelector(".container")
-let n = 0
+
 myLibrary.forEach(function (bookObject) {
 
-    n++
     const bookContainer = document.createElement("div");
 
     bookContainer.setAttribute("class", "book-container");
-    bookContainer.setAttribute("id", bookObject.title + n)
     libraryGrid.appendChild(bookContainer);
 
     const TitleLabel = document.createElement("div");
@@ -135,4 +197,3 @@ myLibrary.forEach(function (bookObject) {
     })
 
 });
-

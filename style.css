@@ -175,3 +175,44 @@ body {
 .trash-icon:active {
     fill: darkred;
 }
+
+.form-container {
+    border: 2px solid black;
+    min-width: 300px;
+    background-color: brown;
+    height: 256px;
+    padding: 12px;
+    gap: 8px;
+}
+
+#new-book-form {
+    display: grid;
+    gap: 16px;
+}
+
+#form-read-status {
+    height: 22px;
+}
+
+.form-btn {
+    width: 164px;
+    height: 22px;
+    justify-self: center;
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+}
+
+.form-btn:hover {
+    cursor: pointer;
+    background-color: #c0c0c0;
+    border: 1px solid #c0c0c0;
+}
+
+.form-btn:active {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+input {
+    margin-top: -12px;
+}
